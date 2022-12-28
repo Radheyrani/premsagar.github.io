@@ -34,8 +34,8 @@ img{
 }
 
 .share{
-width: 80px;
-height: 80px;
+width: 200px;
+height: 200px;
     position: fixed;
     z-index: 100;
     top: 85%;
