@@ -1,0 +1,72 @@
+
+
+
+body{
+   text-align: center;
+   background: dodgerblue linear-gradient(45deg, aqua, dodgerblue, deeppink) fixed;
+}
+
+
+p{
+    font-size: 20px;
+}
+
+input{
+            padding: 5px;
+            color: #fff;
+            background: black;
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+        }
+
+a, .happy{
+    text-decoration: none;
+    background: black;
+    color: yellow;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+img{
+    width: 100%;
+}
+
+.share{
+width: 80px;
+height: 80px;
+    position: fixed;
+    z-index: 100;
+    top: 85%;
+    left: 65%;
+    background: transparent;
+    border: none;
+    animation-name: share;
+    animation-direction: alternate-reverse;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes share {
+    0%{
+       transform: translateY(0);
+    }
+    
+    50%{
+     transform: translateY(-5px);
+    }
+    
+    100%{
+        transform: translateY(0);
+    }
+}
+
+strong{
+    background: yellowgreen;
+}
+
+
+
+
+
