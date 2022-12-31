@@ -1,8 +1,8 @@
 
     const shareData = {
-  title: 'MDN',
-  text: 'Learn web development on MDN!',
-  url: 'https://developer.mozilla.org'
+  title: 'apni rashi dekhe ',
+  text: '2023 me aapki rashi kya kehti hai aapke bare me ',
+  url: 'https://premsagar.ml/'
 }
 
 const btn = document.querySelector('button');
@@ -12,7 +12,7 @@ const resultPara = document.querySelector('.result');
 btn.addEventListener('click', async () => {
   try {
     await navigator.share(shareData);
-    resultPara.textContent = 'MDN shared successfully';
+    resultPara.textContent = ' shared successfully';
   } catch (err) {
     resultPara.textContent = `Error: ${err}`;
   }
