@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+    	body {
+  margin: 0;
+  background: linear-gradient(to left, lightblue, lightgreen);
+  font-family: "Courier New", Courier, monospace;
+}
+
+.heading {
+  color: darkblue;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 35px;
+}
+
+.info-text {
+  text-align: center;
+  color: darkblue;
+  font-size: 18px;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  gap: 40px;
+  justify-content: center;
+  padding: 50px;
+}
+
+.note {
+  padding: 17px;
+  border-radius: 15px;
+  resize: none;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  font-size: 18px;
+  height: 200px;
+  color: darkblue;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+}
+
+.note::placeholder {
+  color: gray;
+  opacity: 30%;
+}
+
+.note:hover,
+.note:focus {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: all 300ms ease;
+}
+
+.btn{
+    height: 200px;
+    border-color: rgba(255, 255, 255, 0.37);
+    background: rgba(255, 255, 255, 0.27);
+    border-radius: 15px;
+    font-size: 70px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.btn:hover{
+    background: rgba(255, 255, 255, 0.55);
+    color: rgba(0, 0, 0, 0.6);
+    transition: all 300ms ease;
+}
+    	</style>
+  </head>
+  <body>
+    <h1 class="heading">Note App</h1>
+    <p class="info-text">Double click on a note to remove it</p>
+    <div class="app" id="app">
+      <!-- <textarea
+        cols="30"
+        rows="10"
+        class="note"
+        placeholder="Empty Note"
+      ></textarea> -->
+
+      <button class="btn" id="btn">+</button>
+    </div>
+    <script>
+    	const btnEl = document.getElementById("btn");
+const appEl = document.getElementById("app");
+
+getNotes().forEach((note) => {
+  const noteEl = createNoteEl(note.id, note.content);
+  appEl.insertBefore(noteEl, btnEl);
+});
+
+function createNoteEl(id, content) {
+  const element = document.createElement("textarea");
+  element.classList.add("note");
+  element.placeholder = "Empty Note";
+  element.value = content;
+
+  element.addEventListener("dblclick", () => {
+    const warning = confirm("Do you want to delete this note?");
+    if (warning) {
+      deleteNote(id, element);
+    }
+  });
+
+  element.addEventListener("input", () => {
+    updateNote(id, element.value);
+  });
+
+  return element;
+}
+
+function deleteNote(id, element) {
+    const notes = getNotes().filter((note)=>note.id != id)
+    saveNote(notes)
+    appEl.removeChild(element)
+}
+
+function updateNote(id, content) {
+  const notes = getNotes();
+  const target = notes.filter((note) => note.id == id)[0];
+  target.content = content;
+  saveNote(notes);
+}
+
+function addNote() {
+  const notes = getNotes();
+  const noteObj = {
+    id: Math.floor(Math.random() * 100000),
+    content: "",
+  };
+  const noteEl = createNoteEl(noteObj.id, noteObj.content);
+  appEl.insertBefore(noteEl, btnEl);
+
+  notes.push(noteObj);
+
+  saveNote(notes);
+}
+
+function saveNote(notes) {
+  localStorage.setItem("note-app", JSON.stringify(notes));
+}
+
+function getNotes() {
+  return JSON.parse(localStorage.getItem("note-app") || "[]");
+}
+
+btnEl.addEventListener("click", addNote);
+</script>
+  </body>
+</html>
